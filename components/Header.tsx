@@ -170,7 +170,7 @@ const Header = () => {
     ];
 
     return (
-        <header className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-md border-b border-stone-100 shadow-sm">
+        <header className="sticky top-0 z-40 w-full bg-white/90 backdrop-blur-md border-b border-stone-100 shadow-sm">
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
 
                 <div className="lg:hidden">
@@ -209,7 +209,7 @@ const Header = () => {
                         target="_blank"
                         className="group relative"
                     >
-                        <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-stone-200 bg-white hover:border-green-500 hover:bg-green-50 transition-all duration-300">
+                        <div className="flex items-center gap-2 px-4 py-2 rounded-full border bg-green-50 border-green-500 hover:bg-green-100 transition-all duration-300">
                             
                             {/* Lucide'den 'MessageCircle' ikonu (Çizgisel stil, tasarıma daha uygun) */}
                             <MessageCircle className="h-5 w-5 text-stone-600 group-hover:text-green-600 transition-colors" />
