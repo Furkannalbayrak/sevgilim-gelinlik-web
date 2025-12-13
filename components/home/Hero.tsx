@@ -49,9 +49,9 @@ const Hero = () => {
                 <p className="text-xl md:text-2xl mb-8 max-w-2xl text-center sm:text-left">
                     Özel gününüz için tasarlanmış zarif ve şık gelinlik koleksiyonumuzu inceleyin.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 w-64 sm:w-full mx-auto">
                     <Link
-                        href="/gelinlikler"
+                        href="/gelinlik-modelleri"
                         className="bg-rose-300 hover:bg-rose-400 text-white font-medium py-3 px-5 rounded-full transition-colors duration-300"
                     >
                         Gelinlik Modellerini Gör
