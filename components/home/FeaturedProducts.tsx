@@ -17,6 +17,7 @@ type Dress = {
     category: string; // Ekranda görünen kategori ismi
     categoryKey: CategoryKey; // Filtreleme için kullanılan anahtar
     image: string;
+    hoverImage: string;
 };
 
 // --- VERİLER ---
@@ -38,6 +39,7 @@ const dresses: Dress[] = [
         categoryKey: "prenses",
         image:
             "https://www.yesimgelinlik.com/wp-content/uploads/2022/08/prenses-gelinlik-modeli-33-4056835395.jpg",
+        hoverImage: "https://cdn-europe.dugunbuketi.com/media/3260/conversions/header-1-md.jpg"
     },
     {
         id: 2,
@@ -47,6 +49,7 @@ const dresses: Dress[] = [
         categoryKey: "balik",
         image:
             "https://alissenuera.com/cdn/shop/files/Alisse-nuerA-Dusuk-Omuzlu-Drapeli-Sade-Helen-Gelinlik-Modeli-Front-Image_2048x.jpg?v=1683900280",
+        hoverImage: "https://janroz.com.tr/wp-content/uploads/2025/09/DzSC00580-550x978.jpg"
     },
     {
         id: 3,
@@ -56,6 +59,7 @@ const dresses: Dress[] = [
         categoryKey: "a-kesim",
         image:
             "https://cdn.dsmcdn.com/ty784/product/media/images/20230317/16/306358829/889458153/1/1_org_zoom.jpg",
+        hoverImage: "https://janroz.com.tr/wp-content/uploads/2025/04/2J1A3619-2-scaled.jpg"
     },
     {
         id: 4,
@@ -64,6 +68,7 @@ const dresses: Dress[] = [
         category: "Prenses Kesim",
         categoryKey: "prenses",
         image: "https://www.yesimgelinlik.com/wp-content/uploads/2025/01/Urun1-700x1050.jpg",
+        hoverImage: "https://www.narinmoda.com/Panel/dashboard/Uploads/Product/Detail/Gallery/Prenses_Gelinlik_1052_1_.jpg"
     },
     {
         id: 5,
@@ -73,6 +78,7 @@ const dresses: Dress[] = [
         categoryKey: "helen",
         image:
             "https://medihacambaz.com/cdn/shop/files/luxe-22-el-yapimi-isiltili-prenses-model-gelinlik-mediha-cambaz-bridal-3_800x.jpg?v=1749036785",
+        hoverImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDuCgpsiGOBz7gAzP8cKKpl7K-dsL3RboX0w&s"
     },
     {
         id: 6,
@@ -82,6 +88,7 @@ const dresses: Dress[] = [
         categoryKey: "prenses",
         image:
             "https://www.davetcokelbisemyok.com/media/catalog/product/cache/401798936e1f39ab34bbb19329bd4ca1/g/e/gemma_gelinlik_dhbd.jpg",
+        hoverImage: "https://duguntrendy.com/images/gallery_post/big/sirti-acik-gelinlik-modelleri_3.jpg"
     },
 ];
 
@@ -97,8 +104,8 @@ export default function FeaturedProducts() {
             : dresses.filter((dress) => dress.categoryKey === activeTab);
 
     return (
-        <section className="bg-gray-50 px-1 py-16 md:px-2 lg:px-6">
-            <div className="container mx-auto px-4">
+        <section className="bg-gray-50 py-16">
+            <div className="max-w-7xl w-full mx-auto px-4 sm:px-8">
                 {/* Başlık */}
                 <div className="mb-12 text-center">
                     <h2 className="mb-4 text-4xl font-bold text-gray-800 md:text-5xl font-[family-name:var(--font-dancing)]">
@@ -142,37 +149,65 @@ export default function FeaturedProducts() {
                     {filteredDresses.map((dress) => (
                         <article
                             key={dress.id}
-                            className="group cursor-pointer"
+                            className="group relative cursor-pointer"
+                            // Tüm karta tıklayınca detay sayfasına git
                             onClick={() => router.push(`/gelinlik-modeli/${dress.id}`)}
                         >
-                            {/* Resim Alanı - Kart yapısı kaldırıldı, sadece resim yuvarlatıldı */}
-                            <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-gray-100 mb-4">
+                            {/* --- RESİM ALANI --- */}
+                            <div className="relative aspect-[3/5] sm:aspect-[3/4] overflow-hidden rounded-xl bg-gray-100">
+
+                                {/* 1. ANA RESİM (Zemin) */}
                                 <Image
                                     src={dress.image}
                                     alt={dress.name}
                                     fill
-                                    className="object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
-                                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                                    sizes="(max-width: 768px) 50vw, 33vw"
+                                    // priority ekleyerek yükleme gecikmesini önleriz (İlk 4-5 ürün için true olabilir)
+                                    className="object-cover z-10"
                                 />
 
-                                {/* Hover'da çıkan "İncele" butonu */}
-                                <div className="absolute inset-0 flex items-center justify-center bg-black/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                                    <span className="translate-y-4 rounded-full bg-white/90 px-6 py-2 text-sm font-medium text-gray-900 backdrop-blur-sm transition-all duration-300 group-hover:translate-y-0">
-                                        İncele
-                                    </span>
+                                {/* 2. İKİNCİ RESİM (Perde) */}
+                                {dress.hoverImage && (
+                                    <Image
+                                        src={dress.hoverImage}
+                                        alt={`${dress.name} arkası`}
+                                        fill
+                                        sizes="(max-width: 768px) 50vw, 33vw"
+                                        className="absolute inset-0 object-cover z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-0 ease-linear"
+                                    />
+                                )}
+
+                                {/* --- AKSİYON BUTONLARI (Sağ Üst) --- */}
+                                {/* --- AKSİYON BUTONLARI (Sağ Üst - Sabit ve Minimal) --- */}
+                                <div className="absolute top-3 right-3 z-30 flex flex-col gap-2">
+
+                                    {/* Favoriye Ekle */}
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            console.log('Favoriye eklendi'); // Buraya toggleFavorite gelecek
+                                        }}
+                                        // Minimal Tasarım: Sadece beyaz zemin, gri ikon. Hover olunca pembeleşir.
+                                        className="bg-white p-2 rounded-full shadow-md text-gray-400 hover:text-rose-500 transition-colors"
+                                        title="Favorilere Ekle"
+                                    >
+                                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
 
-                            {/* Bilgi Alanı - Kutu dışına alındı, sadeleştirildi */}
-                            <div className="text-center">
-                                <h3 className="mb-1 text-base font-medium text-gray-900 md:text-lg">
+                            {/* --- BİLGİ ALANI --- */}
+                            <div className="mt-4 text-center group-hover:-translate-y-1 transition-transform duration-300">
+                                <h3 className="text-gray-900 font-playfair font-medium text-lg truncate px-2">
                                     {dress.name}
                                 </h3>
-                                <p className="mb-2 text-xs text-gray-500 uppercase tracking-wider">
+                                <p className="text-gray-500 text-xs uppercase tracking-widest mt-1 mb-2">
                                     {dress.category}
                                 </p>
-                                <div className="text-rose-500 font-medium">
-                                    {dress.price}
+                                <div className="flex items-center justify-center gap-2">
+                                    <span className="text-rose-600 font-semibold text-lg">{dress.price}</span>
                                 </div>
                             </div>
                         </article>
@@ -182,7 +217,7 @@ export default function FeaturedProducts() {
                 {/* Alt Buton */}
                 <div className="mt-12 md:mt-16 text-center">
                     <Link
-                        href="/tum-gelinlik-modelleri"
+                        href="/gelinlik-modelleri"
                         className="group inline-flex items-center gap-2 rounded-full border border-rose-400 px-6 py-2.5 text-sm font-medium text-rose-500 transition-all duration-300 hover:bg-rose-400 hover:text-white hover:shadow-lg md:border-2 md:px-8 md:py-3 md:text-lg"
                     >
                         Tüm Koleksiyonu Görüntüle
