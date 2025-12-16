@@ -52,7 +52,7 @@ const Hero = () => {
                 <div className="flex flex-col sm:flex-row gap-4 w-64 sm:w-full mx-auto">
                     <Link
                         href="/gelinlik-modelleri"
-                        className="bg-rose-300 hover:bg-rose-400 text-white font-medium py-3 px-5 rounded-full transition-colors duration-300"
+                        className="bg-rose-400 hover:bg-rose-500 text-white font-medium py-3 px-5 rounded-full transition-colors duration-300"
                     >
                         Gelinlik Modellerini Gör
                     </Link>
