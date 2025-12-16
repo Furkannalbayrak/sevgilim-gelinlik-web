@@ -44,12 +44,12 @@ const DressModelsDropdown = () => {
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                 >
-                    <div className="container mx-auto px-4 py-8">
+                    <div className="max-w-7xl w-full mx-auto px-4 pl-20 py-8">
                         <div className="grid grid-cols-5 gap-8">
                             {(Object.entries(FILTER_LABELS) as [FilterCategory, string][]).map(([key, label]) => (
                                 <div key={key} className="p-2">
                                     {/* Kategori Başlığı */}
-                                    <h4 className="font-semibold text-base text-rose-600 mb-4 pb-2 border-b border-gray-100 uppercase tracking-wide">
+                                    <h4 className="font-semibold text-base text-rose-600 mb-4 pb-2 border-b border-gray-200 uppercase tracking-wide">
                                         {label}
                                     </h4>
 
@@ -58,8 +58,6 @@ const DressModelsDropdown = () => {
                                         {FILTER_OPTIONS[key].map((opt) => (
                                             <li key={opt.id}>
                                                 <Link
-                                                    // DÜZELTİLDİ: Artık doğru URL yapısı kullanılıyor
-                                                    // Örn: /gelinlik-modelleri/prenses
                                                     href={`/gelinlik-modelleri/${opt.id}`}
                                                     className="block text-gray-600 hover:text-rose-600 hover:translate-x-1 transition-all text-sm py-1"
                                                     onClick={() => setIsOpen(false)}
@@ -72,13 +70,13 @@ const DressModelsDropdown = () => {
                                 </div>
                             ))}
                         </div>
-                        <div className="mt-8 text-center border-t border-gray-100 pt-6">
+                        <div className="mt-8 text-center border-t border-gray-100 pt-6 pr-20">
                             <Link
                                 href="/gelinlik-modelleri"
                                 className="inline-block py-3 px-10 bg-rose-500 text-white rounded-full hover:bg-rose-600 transition-colors font-medium shadow-md hover:shadow-lg"
                                 onClick={() => setIsOpen(false)}
                             >
-                                TÜM KOLEKSİYONU GÖR
+                                TÜM MODELLERİ GÖR
                             </Link>
                         </div>
                     </div>
