@@ -38,14 +38,14 @@ export default function FilterDrawer() {
             </SheetTrigger>
 
             {/* Yan Panel İçeriği (Açık Tema: Beyaz Zemin) */}
-            <SheetContent 
-                side="left" 
+            <SheetContent
+                side="left"
                 className="w-[320px] sm:w-[380px] p-0 bg-white border-r border-gray-100 text-gray-900 overflow-y-auto"
             >
                 {/* 1. Başlık ve Kapatma Alanı */}
                 <SheetHeader className="p-6 border-b border-gray-100 flex flex-row items-center justify-between sticky top-0 bg-white z-10">
-                    <SheetTitle className="font-playfair text-xl font-bold tracking-wide text-gray-900 text-left">
-                        GELİNLİK MODELLERİ
+                    <SheetTitle className="font-sans text-lg font-bold tracking-wide text-gray-900 text-left">
+                        MODELLERİ FİLTRELE  {/* <-- Burayı değiştirdim */}
                     </SheetTitle>
                     <SheetClose className="text-gray-400 hover:text-rose-500 transition-colors">
                         <X className="w-6 h-6" />
@@ -79,9 +79,8 @@ export default function FilterDrawer() {
 
                                 {/* Alt Menü (Açılır Alan: Hafif Gri Zemin) */}
                                 <div
-                                    className={`overflow-hidden transition-all duration-300 ease-in-out bg-gray-50/50 ${
-                                        isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
-                                    }`}
+                                    className={`overflow-hidden transition-all duration-300 ease-in-out bg-gray-50/50 ${isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
+                                        }`}
                                 >
                                     <ul className="py-2 pb-4">
                                         {subOptions.map((opt) => (
@@ -106,11 +105,11 @@ export default function FilterDrawer() {
                 {/* Alt Kısım: Tümünü Gör */}
                 <div className="p-6 mt-4 bg-gray-50 border-t border-gray-100">
                     <SheetClose asChild>
-                        <Link 
+                        <Link
                             href="/gelinlik-modelleri"
-                            className="flex items-center justify-center w-full py-4 bg-rose-500 text-white rounded-lg font-medium tracking-wide hover:bg-rose-600 transition-colors shadow-md hover:shadow-lg text-sm uppercase"
+                            className="flex items-center justify-center w-full py-4 bg-rose-500 text-white rounded-lg font-medium tracking-wide hover:bg-rose-600 transition-colors shadow-md hover:shadow-lg text-sm"
                         >
-                            Tüm Koleksiyonu Gör
+                            TÜM MODELLERİ GÖR
                         </Link>
                     </SheetClose>
                 </div>
