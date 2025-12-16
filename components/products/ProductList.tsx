@@ -38,7 +38,7 @@ const ProductList = ({ activeSlug }: ProductListProps) => {
   };
 
   return (
-    <section className="py-12 px-4 md:px-6 bg-white min-h-screen">
+    <section className="pt-12 pb-32 px-4 md:px-6 bg-white min-h-screen">
       <div className="max-w-7xl w-full mx-auto">
 
         {/* Üst Başlık ve Filtre Butonu */}
@@ -70,25 +70,25 @@ const ProductList = ({ activeSlug }: ProductListProps) => {
         {/* --- ÜRÜN LİSTESİ --- */}
         <div className="w-full">
           {displayedDresses.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 lg:gap-y-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-10 lg:gap-y-12">
               {displayedDresses.map((dress) => (
                 <Link
                   key={dress.id}
-                  href={`/gelinlik-modeli/${dress.id}`}
+                  href={`/gelinlik/${dress.slug}-${dress.id}`}
                   className="group block"
                 >
                   <article className="relative">
                     <div className="relative aspect-[3/5] sm:aspect-[3/4] overflow-hidden rounded-md bg-gray-100 shadow-sm">
                       <Image
-                        src={dress.image}
+                        src={dress.images[0]}
                         alt={dress.name}
                         fill
                         sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                         className="object-cover z-10"
                       />
-                      {dress.hoverImage && (
+                      {dress.images[1] && (
                         <Image
-                          src={dress.hoverImage}
+                          src={dress.images[1]}
                           alt={`${dress.name} detay`}
                           fill
                           sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
@@ -119,9 +119,6 @@ const ProductList = ({ activeSlug }: ProductListProps) => {
                       </h3>
                       <p className="text-gray-500 text-xs uppercase tracking-widest mt-1">
                         {dress.category}
-                      </p>
-                      <p className="text-rose-600 font-semibold text-lg mt-1">
-                        {dress.price}
                       </p>
                     </div>
                   </article>
