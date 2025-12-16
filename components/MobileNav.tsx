@@ -10,77 +10,97 @@ import {
     SheetTrigger,
     SheetClose,
 } from "@/components/ui/sheet"
-import { Menu, ChevronDown, ChevronUp } from "lucide-react"
+import { Menu, Plus, Minus, Facebook, Twitter, Instagram, Youtube } from "lucide-react"
 import { FILTER_LABELS, FILTER_OPTIONS, FilterCategory } from '@/lib/data';
 
 export default function MobileNav() {
-    // Accordion için hangi kategorinin açık olduğunu tutan state
-    // Örn: { 'etekTipi': true, 'yakaTipi': false }
+    // Alt kategorilerin (Etek Tipi vb.) açık/kapalı durumu
     const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({});
+
+    // Ana "Gelinlik Modelleri" menüsünün açık/kapalı durumu
+    const [isGelinlikMenuOpen, setIsGelinlikMenuOpen] = useState(false);
 
     const navLinks = [
         { name: 'Ana Sayfa', path: '/' },
-        { name: 'Gelinlik Modelleri', path: '/gelinlik-modelleri' },
+        { name: 'Gelinlik Modelleri', path: '/gelinlik-modelleri', isDropdown: true },
         { name: 'Hakkımızda', path: '/hakkimizda' },
         { name: 'İletişim', path: '/iletisim' },
     ]
 
-    // Kategori Aç/Kapa Fonksiyonu
+    // Alt Kategori Aç/Kapa Fonksiyonu
     const toggleCategory = (key: string) => {
         setOpenCategories(prev => ({
             ...prev,
-            [key]: !prev[key] // Tıklananı tersine çevir (Açıksa kapat, kapalıysa aç)
+            [key]: !prev[key]
         }));
     }
 
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <button className="text-gray-700 hover:text-rose-300 focus:outline-none lg:hidden p-2">
+                <button className="text-gray-700 hover:text-rose-500 focus:outline-none lg:hidden p-2">
                     <Menu className="h-6 w-6" />
                 </button>
             </SheetTrigger>
-            
-            <SheetContent side="left" className="w-[300px] sm:w-[350px] overflow-y-auto bg-white">
-                <SheetHeader className="border-b border-gray-100 pb-4 mb-4">
+
+            {/* Açık Tema: Beyaz Arka Plan */}
+            <SheetContent side="left" className="w-[300px] sm:w-[350px] overflow-y-auto bg-white border-r border-gray-100 p-0 text-gray-900 flex flex-col h-full">
+
+                {/* Header Kısmı */}
+                <SheetHeader className="border-b border-gray-100 p-6 text-left shrink-0 sticky top-0 bg-white z-10">
                     <SheetTitle className="text-left font-dancing text-2xl text-rose-500 font-bold">
                         Sevgilim Gelinlik
                     </SheetTitle>
                 </SheetHeader>
 
-                <div className="flex flex-col space-y-4">
+                <div className="flex flex-col flex-grow">
                     {navLinks.map((link) => (
-                        <div key={link.name} className="w-full border-b border-gray-50 pb-2 last:border-0">
-                            
-                            {/* --- ÖZEL DURUM: Gelinlik Modelleri --- */}
-                            {link.name === 'Gelinlik Modelleri' ? (
-                                <div>
-                                    <div className="py-2">
-                                        <p className="mb-3 font-semibold text-lg text-gray-800">Koleksiyonlar</p>
-                                        
-                                        {/* KATEGORİLERİ DÖNGÜYE ALIYORUZ */}
+                        <div key={link.name} className="w-full border-b border-gray-100 last:border-0">
+
+                            {/* --- ÖZEL DURUM: Gelinlik Modelleri (Dropdown) --- */}
+                            {link.isDropdown ? (
+                                <div className="flex flex-col">
+                                    {/* Ana Başlık Butonu - Tıklanınca Açılır/Kapanır */}
+                                    <button
+                                        onClick={() => setIsGelinlikMenuOpen(!isGelinlikMenuOpen)}
+                                        className="w-full flex items-center justify-between p-5 text-left hover:bg-gray-50 transition-colors group"
+                                    >
+                                        <span className={`text-sm font-semibold tracking-wider transition-colors ${isGelinlikMenuOpen ? 'text-rose-600' : 'text-gray-700 group-hover:text-gray-900'}`}>
+                                            {link.name.toUpperCase()}
+                                        </span>
+                                        {/* İkon Değişimi */}
+                                        {isGelinlikMenuOpen ? (
+                                            <Minus className="w-4 h-4 text-rose-500" />
+                                        ) : (
+                                            <Plus className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                                        )}
+                                    </button>
+
+                                    {/* Açılır Menü İçeriği */}
+                                    <div className={`overflow-hidden transition-all duration-300 ease-in-out bg-gray-50/50 ${isGelinlikMenuOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+
+                                        {/* Alt Kategoriler (Etek Tipi, Yaka Tipi vb.) */}
                                         {(Object.entries(FILTER_LABELS) as [FilterCategory, string][]).map(([key, label]) => (
-                                            <div key={key} className="mb-1">
-                                                {/* Kategori Başlığı (Örn: Etek Tipi) */}
+                                            <div key={key} className="border-b border-gray-100 last:border-0">
                                                 <button
-                                                    className="w-full flex items-center justify-between py-2.5 px-2 text-gray-600 hover:bg-rose-50 hover:text-rose-600 rounded-md transition-colors text-sm font-medium"
+                                                    className="w-full flex items-center justify-between py-3 px-8 text-gray-600 hover:text-rose-600 transition-colors text-xs font-medium uppercase tracking-wider"
                                                     onClick={() => toggleCategory(key)}
                                                 >
                                                     <span>{label}</span>
-                                                    {openCategories[key] ? 
-                                                        <ChevronUp className="h-4 w-4 text-rose-400" /> : 
-                                                        <ChevronDown className="h-4 w-4 text-gray-400" />
+                                                    {openCategories[key] ?
+                                                        <Minus className="h-3 w-3 text-rose-400" /> :
+                                                        <Plus className="h-3 w-3 text-gray-400" />
                                                     }
                                                 </button>
 
-                                                {/* ALT LİNKLER (Modeller) */}
+                                                {/* En Alt Linkler (Prenses, A Kesim vb.) */}
                                                 {openCategories[key] && (
-                                                    <div className="ml-2 border-l-2 border-rose-100 pl-2 mt-1 space-y-1">
+                                                    <div className="bg-white">
                                                         {FILTER_OPTIONS[key].map((opt) => (
                                                             <SheetClose asChild key={opt.id}>
                                                                 <Link
                                                                     href={`/gelinlik-modelleri/${opt.id}`}
-                                                                    className="block py-2 px-3 text-sm text-gray-500 hover:text-rose-600 hover:bg-rose-50/50 rounded-md transition-all"
+                                                                    className="block py-2 px-10 text-xs text-gray-500 hover:text-rose-600 hover:bg-rose-50 transition-all border-l-4 border-transparent hover:border-rose-200"
                                                                 >
                                                                     {opt.label}
                                                                 </Link>
@@ -91,11 +111,12 @@ export default function MobileNav() {
                                             </div>
                                         ))}
 
-                                        <div className="mt-4 pt-2">
+                                        {/* Tümünü Gör Butonu */}
+                                        <div className="p-6">
                                             <SheetClose asChild>
                                                 <Link
                                                     href="/gelinlik-modelleri"
-                                                    className="block w-full py-2.5 text-center bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition-colors text-sm font-medium shadow-sm"
+                                                    className="block w-full py-3 text-center bg-rose-500 text-white rounded-lg hover:bg-rose-600 transition-colors text-xs font-medium uppercase tracking-widest shadow-sm"
                                                 >
                                                     Tüm Modelleri Gör
                                                 </Link>
@@ -108,7 +129,7 @@ export default function MobileNav() {
                                 <SheetClose asChild>
                                     <Link
                                         href={link.path}
-                                        className="block py-2 text-gray-700 hover:text-rose-500 transition-colors text-lg font-medium"
+                                        className="block p-5 text-sm font-semibold tracking-wider text-gray-700 hover:text-rose-600 hover:bg-gray-50 transition-colors uppercase"
                                     >
                                         {link.name}
                                     </Link>
@@ -116,6 +137,16 @@ export default function MobileNav() {
                             )}
                         </div>
                     ))}
+                </div>
+
+                {/* Footer / Sosyal Medya */}
+                <div className="mt-auto border-t border-gray-100 p-6 shrink-0 bg-gray-50">
+                    <div className="flex justify-center space-x-6">
+                        <Facebook className="h-5 w-5 text-gray-400 hover:text-rose-500 cursor-pointer transition-colors" />
+                        <Twitter className="h-5 w-5 text-gray-400 hover:text-rose-500 cursor-pointer transition-colors" />
+                        <Instagram className="h-5 w-5 text-gray-400 hover:text-rose-500 cursor-pointer transition-colors" />
+                        <Youtube className="h-5 w-5 text-gray-400 hover:text-rose-500 cursor-pointer transition-colors" />
+                    </div>
                 </div>
             </SheetContent>
         </Sheet>
