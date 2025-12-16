@@ -4,23 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { DRESSES_DATA } from "@/lib/data";
 
 // --- TİP TANIMLAMALARI ---
 
-// Sadece basit kategorilerimiz var
 type CategoryKey = "tumu" | "prenses" | "balik" | "a-kesim" | "helen";
-
-type Dress = {
-    id: number;
-    name: string;
-    price: string;
-    category: string; // Ekranda görünen kategori ismi
-    categoryKey: CategoryKey; // Filtreleme için kullanılan anahtar
-    image: string;
-    hoverImage: string;
-};
-
-// --- VERİLER ---
 
 const categories: { key: CategoryKey; label: string }[] = [
     { key: "tumu", label: "Tümü" },
@@ -28,68 +16,6 @@ const categories: { key: CategoryKey; label: string }[] = [
     { key: "balik", label: "Balık Model" },
     { key: "a-kesim", label: "A-Kesim" },
     { key: "helen", label: "Helenistik" },
-];
-
-const dresses: Dress[] = [
-    {
-        id: 1,
-        name: "Prenses Kesim Gelinlik",
-        price: "12.999 TL",
-        category: "Prenses Kesim",
-        categoryKey: "prenses",
-        image:
-            "https://www.yesimgelinlik.com/wp-content/uploads/2022/08/prenses-gelinlik-modeli-33-4056835395.jpg",
-        hoverImage: "https://cdn-europe.dugunbuketi.com/media/3260/conversions/header-1-md.jpg"
-    },
-    {
-        id: 2,
-        name: "Balık Sırtı Gelinlik",
-        price: "14.999 TL",
-        category: "Balık Sırtı",
-        categoryKey: "balik",
-        image:
-            "https://alissenuera.com/cdn/shop/files/Alisse-nuerA-Dusuk-Omuzlu-Drapeli-Sade-Helen-Gelinlik-Modeli-Front-Image_2048x.jpg?v=1683900280",
-        hoverImage: "https://janroz.com.tr/wp-content/uploads/2025/09/DzSC00580-550x978.jpg"
-    },
-    {
-        id: 3,
-        name: "A-Line Gelinlik",
-        price: "11.999 TL",
-        category: "A-Line",
-        categoryKey: "a-kesim",
-        image:
-            "https://cdn.dsmcdn.com/ty784/product/media/images/20230317/16/306358829/889458153/1/1_org_zoom.jpg",
-        hoverImage: "https://janroz.com.tr/wp-content/uploads/2025/04/2J1A3619-2-scaled.jpg"
-    },
-    {
-        id: 4,
-        name: "Uzun Kollu Gelinlik",
-        price: "16.999 TL",
-        category: "Prenses Kesim",
-        categoryKey: "prenses",
-        image: "https://www.yesimgelinlik.com/wp-content/uploads/2025/01/Urun1-700x1050.jpg",
-        hoverImage: "https://www.narinmoda.com/Panel/dashboard/Uploads/Product/Detail/Gallery/Prenses_Gelinlik_1052_1_.jpg"
-    },
-    {
-        id: 5,
-        name: "Etek-Ceket Gelinlik",
-        price: "15.999 TL",
-        category: "Helenistik",
-        categoryKey: "helen",
-        image:
-            "https://medihacambaz.com/cdn/shop/files/luxe-22-el-yapimi-isiltili-prenses-model-gelinlik-mediha-cambaz-bridal-3_800x.jpg?v=1749036785",
-        hoverImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDuCgpsiGOBz7gAzP8cKKpl7K-dsL3RboX0w&s"
-    },
-    {
-        id: 6,
-        name: "İnci İşlemeli",
-        price: "17.999 TL",
-        category: "Prenses Kesim",
-        categoryKey: "prenses",
-        image:
-            "https://www.davetcokelbisemyok.com/media/catalog/product/cache/401798936e1f39ab34bbb19329bd4ca1/g/e/gemma_gelinlik_dhbd.jpg",
-        hoverImage: "https://duguntrendy.com/images/gallery_post/big/sirti-acik-gelinlik-modelleri_3.jpg"
-    },
 ];
 
 export default function FeaturedProducts() {
@@ -100,8 +26,8 @@ export default function FeaturedProducts() {
     // Seçili sekmeye göre ürünleri filtrele
     const filteredDresses =
         activeTab === "tumu"
-            ? dresses
-            : dresses.filter((dress) => dress.categoryKey === activeTab);
+            ? DRESSES_DATA
+            : DRESSES_DATA.filter((dress) => dress.categoryKey === activeTab);
 
     return (
         <section className="bg-gray-50 py-16">
@@ -145,20 +71,20 @@ export default function FeaturedProducts() {
                 </div>
 
                 {/* Ürün Listesi */}
-                <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 lg:gap-x-8 lg:gap-y-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-10 lg:gap-y-12">
                     {filteredDresses.map((dress) => (
                         <article
                             key={dress.id}
                             className="group relative cursor-pointer"
                             // Tüm karta tıklayınca detay sayfasına git
-                            onClick={() => router.push(`/gelinlik-modeli/${dress.id}`)}
+                            onClick={()=> router.push(`/gelinlik/${dress.slug}-${dress.id}`)}
                         >
                             {/* --- RESİM ALANI --- */}
-                            <div className="relative aspect-[3/5] sm:aspect-[3/4] overflow-hidden rounded-xl bg-gray-100">
+                            <div className="relative aspect-[3/5] sm:aspect-[3/4] overflow-hidden rounded-md bg-gray-100">
 
                                 {/* 1. ANA RESİM (Zemin) */}
                                 <Image
-                                    src={dress.image}
+                                    src={dress.images[0]}
                                     alt={dress.name}
                                     fill
                                     sizes="(max-width: 768px) 50vw, 33vw"
@@ -167,9 +93,9 @@ export default function FeaturedProducts() {
                                 />
 
                                 {/* 2. İKİNCİ RESİM (Perde) */}
-                                {dress.hoverImage && (
+                                {dress.images[1] && (
                                     <Image
-                                        src={dress.hoverImage}
+                                        src={dress.images[1]}
                                         alt={`${dress.name} arkası`}
                                         fill
                                         sizes="(max-width: 768px) 50vw, 33vw"
@@ -206,9 +132,6 @@ export default function FeaturedProducts() {
                                 <p className="text-gray-500 text-xs uppercase tracking-widest mt-1 mb-2">
                                     {dress.category}
                                 </p>
-                                <div className="flex items-center justify-center gap-2">
-                                    <span className="text-rose-600 font-semibold text-lg">{dress.price}</span>
-                                </div>
                             </div>
                         </article>
                     ))}
