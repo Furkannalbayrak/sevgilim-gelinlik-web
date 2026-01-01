@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { DRESSES_DATA } from "@/lib/data";
 
@@ -19,8 +18,6 @@ const categories: { key: CategoryKey; label: string }[] = [
 ];
 
 export default function FeaturedProducts() {
-    const router = useRouter();
-
     const [activeTab, setActiveTab] = useState<CategoryKey>("tumu");
 
     // Seçili sekmeye göre ürünleri filtrele
@@ -75,64 +72,48 @@ export default function FeaturedProducts() {
                     {filteredDresses.map((dress) => (
                         <article
                             key={dress.id}
-                            className="group relative cursor-pointer"
-                            // Tüm karta tıklayınca detay sayfasına git
-                            onClick={()=> router.push(`/gelinlik/${dress.slug}-${dress.id}`)}
+                            className="group relative"
                         >
-                            {/* --- RESİM ALANI --- */}
-                            <div className="relative aspect-[3/5] sm:aspect-[3/4] overflow-hidden rounded-md bg-gray-100">
+                            <Link
+                                href={`/gelinlik/${dress.slug}-${dress.id}`}
+                                className="group block h-full cursor-pointer"
+                            >
 
-                                {/* 1. ANA RESİM (Zemin) */}
-                                <Image
-                                    src={dress.images[0]}
-                                    alt={dress.name}
-                                    fill
-                                    sizes="(max-width: 768px) 50vw, 33vw"
-                                    // priority ekleyerek yükleme gecikmesini önleriz (İlk 4-5 ürün için true olabilir)
-                                    className="object-cover z-10"
-                                />
+                                {/* --- RESİM ALANI --- */}
+                                <div className="relative aspect-[3/5] sm:aspect-[3/4] overflow-hidden rounded-md bg-gray-100">
 
-                                {/* 2. İKİNCİ RESİM (Perde) */}
-                                {dress.images[1] && (
+                                    {/* 1. ANA RESİM (Zemin) */}
                                     <Image
-                                        src={dress.images[1]}
-                                        alt={`${dress.name} arkası`}
+                                        src={dress.images[0]}
+                                        alt={dress.name}
                                         fill
                                         sizes="(max-width: 768px) 50vw, 33vw"
-                                        className="absolute inset-0 object-cover z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-0 ease-linear"
+                                        // priority ekleyerek yükleme gecikmesini önleriz (İlk 4-5 ürün için true olabilir)
+                                        className="object-cover z-10"
                                     />
-                                )}
 
-                                {/* --- AKSİYON BUTONLARI (Sağ Üst) --- */}
-                                {/* --- AKSİYON BUTONLARI (Sağ Üst - Sabit ve Minimal) --- */}
-                                <div className="absolute top-3 right-3 z-30 flex flex-col gap-2">
-
-                                    {/* Favoriye Ekle */}
-                                    <button
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            console.log('Favoriye eklendi'); // Buraya toggleFavorite gelecek
-                                        }}
-                                        // Minimal Tasarım: Sadece beyaz zemin, gri ikon. Hover olunca pembeleşir.
-                                        className="bg-white p-2 rounded-full shadow-md text-gray-400 hover:text-rose-500 transition-colors"
-                                        title="Favorilere Ekle"
-                                    >
-                                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                        </svg>
-                                    </button>
+                                    {/* 2. İKİNCİ RESİM (Perde) */}
+                                    {dress.images[1] && (
+                                        <Image
+                                            src={dress.images[1]}
+                                            alt={`${dress.name} arkası`}
+                                            fill
+                                            sizes="(max-width: 768px) 50vw, 33vw"
+                                            className="absolute inset-0 object-cover z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-0 ease-linear"
+                                        />
+                                    )}
                                 </div>
-                            </div>
 
-                            {/* --- BİLGİ ALANI --- */}
-                            <div className="mt-4 text-center group-hover:-translate-y-1 transition-transform duration-300">
-                                <h3 className="text-gray-900 font-playfair font-medium text-lg truncate px-2">
-                                    {dress.name}
-                                </h3>
-                                <p className="text-gray-500 text-xs uppercase tracking-widest mt-1 mb-2">
-                                    {dress.category}
-                                </p>
-                            </div>
+                                {/* --- BİLGİ ALANI --- */}
+                                <div className="mt-4 text-center group-hover:-translate-y-1 transition-transform duration-300">
+                                    <h3 className="text-gray-900 font-playfair font-medium text-lg truncate px-2">
+                                        {dress.name}
+                                    </h3>
+                                    <p className="text-gray-500 text-xs uppercase tracking-widest mt-1 mb-2">
+                                        {dress.category}
+                                    </p>
+                                </div>
+                            </Link>
                         </article>
                     ))}
                 </div>
