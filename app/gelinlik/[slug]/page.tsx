@@ -6,7 +6,7 @@ import { notFound, useRouter } from "next/navigation";
 import { DRESSES_DATA } from "@/lib/data";
 import { use, useState } from "react";
 import { ChevronRight, Heart, Share2 } from "lucide-react";
-import { cn } from "@/lib/utils"; // cn fonksiyonun yoksa `${...}` şeklinde string birleştirme yapabilirsin
+import { cn } from "@/lib/utils"; 
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -26,7 +26,6 @@ export default function ProductDetailPage({ params }: PageProps) {
 
     if (!product) return notFound();
 
-    // Hata kontrolü yok, direkt images dizisi
     const galleryImages = product.images;
 
     return (
