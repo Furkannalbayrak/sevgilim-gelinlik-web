@@ -3,10 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, useRouter } from "next/navigation";
-import { DRESSES_DATA } from "@/lib/data";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { ChevronRight, Heart, Share2 } from "lucide-react";
-import { cn } from "@/lib/utils"; 
+import { cn } from "@/lib/utils";
+import { getDressBySlug } from "@/lib/supabase";
+import { Dress } from "@/lib/data";
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -16,13 +17,46 @@ export default function ProductDetailPage({ params }: PageProps) {
     const { slug } = use(params);
     const router = useRouter();
 
-    // ID bulma
-    const parts = slug.split('-');
-    const id = Number(parts[parts.length - 1]);
-    const product = DRESSES_DATA.find((p) => p.id === id);
-
-    // Hangi resmin seçili olduğunu tutan state
+    const [product, setProduct] = useState<Dress | null>(null);
+    const [loading, setLoading] = useState(true);
     const [activeIdx, setActiveIdx] = useState(0);
+
+    useEffect(() => {
+        async function fetchData() {
+            setLoading(true);
+            try {
+                // Slug'ı doğrudan gönderiyoruz, lib/supabase.ts içindeki mantık gerisini hallediyor
+                const data = await getDressBySlug(slug);
+                if (data) {
+                    setProduct(data);
+                }
+            } catch (error) {
+                console.error("Ürün yüklenirken hata:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        if (slug) {
+            fetchData();
+        }
+    }, [slug]);
+
+    const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+        const scrollPosition = e.currentTarget.scrollLeft;
+        const width = e.currentTarget.offsetWidth;
+        const index = Math.round(scrollPosition / width);
+        setActiveIdx(index);
+    };
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex flex-col items-center justify-center">
+                <div className="w-10 h-10 border-4 border-rose-200 border-t-rose-500 rounded-full animate-spin mb-4"></div>
+                <p className="text-gray-500 animate-pulse">Ürün bilgileri getiriliyor...</p>
+            </div>
+        );
+    }
 
     if (!product) return notFound();
 
@@ -71,13 +105,30 @@ export default function ProductDetailPage({ params }: PageProps) {
                     <div className="relative w-full aspect-[3/4] lg:h-[600px] bg-gray-100 rounded-lg overflow-hidden">
 
                         {/* MOBILE: Swipe (Kaydırmalı) */}
-                        <div className="flex lg:hidden overflow-x-auto snap-x snap-mandatory h-full w-full no-scrollbar">
+                        <div
+                            className="flex lg:hidden overflow-x-auto snap-x snap-mandatory h-full w-full no-scrollbar"
+                            onScroll={handleScroll}
+                        >
                             {galleryImages.map((img, i) => (
                                 <div key={i} className="snap-center shrink-0 w-full h-full relative">
                                     <Image src={img} alt="" fill className="object-cover" />
                                 </div>
                             ))}
                         </div>
+
+                        {galleryImages.length > 1 && (
+                            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10 lg:hidden pointer-events-none">
+                                {galleryImages.map((_, idx) => (
+                                    <div
+                                        key={idx}
+                                        className={cn(
+                                            "h-1.5 rounded-full transition-all duration-300 shadow-sm",
+                                            activeIdx === idx ? "w-6 bg-rose-500" : "w-1.5 bg-white/80"
+                                        )}
+                                    />
+                                ))}
+                            </div>
+                        )}
 
                         {/* DESKTOP: Tek Büyük Resim (State'e göre değişir) */}
                         <div className="hidden lg:block w-full h-full relative">
@@ -89,10 +140,6 @@ export default function ProductDetailPage({ params }: PageProps) {
                                 priority
                             />
                         </div>
-
-                        <button className="absolute top-4 right-4 bg-white p-2.5 rounded-full shadow-lg hover:text-rose-500 transition-colors z-10">
-                            <Heart className="w-5 h-5" />
-                        </button>
                     </div>
                 </div>
 
@@ -113,9 +160,11 @@ export default function ProductDetailPage({ params }: PageProps) {
                     {/* Filtre Etiketleri */}
                     <div className="flex flex-wrap gap-2 mb-8">
                         {product.filters && Object.entries(product.filters).map(([key, val]) => (
-                            <span key={key} className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-md capitalize">
-                                {val}
-                            </span>
+                            val ? (
+                                <span key={key} className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-md capitalize">
+                                    {val}
+                                </span>
+                            ) : null
                         ))}
                     </div>
 
@@ -126,13 +175,6 @@ export default function ProductDetailPage({ params }: PageProps) {
                         >
                             WHATSAPP İLE BİLGİ AL
                         </Link>
-                        <Link
-                            href={'#'}
-                            className="block w-full py-4 border border-gray-300 rounded-lg hover:bg-gray-100 text-center text-sm font-bold shadow-md transition-all transform hover:-translate-y-1"
-                        >
-                            RANDEVU AL
-                        </Link>
-
                     </div>
                 </div>
             </div>
