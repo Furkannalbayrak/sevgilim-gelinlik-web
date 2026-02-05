@@ -1,9 +1,14 @@
 import ProductList from "@/components/products/ProductList";
+import { getDresses } from "@/lib/supabase"; // Veri çekme fonksiyonu
 
-export default function gelinlikModelleriPage(){
-    return(
+// Async component yapıyoruz
+export default async function GelinlikModelleriPage() {
+    // Veriyi sunucuda çek
+    const dresses = await getDresses();
+
+    return (
         <div>
-            <ProductList />
+            <ProductList dresses={dresses} />
         </div>
-    )
+    );
 }
