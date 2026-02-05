@@ -1,5 +1,6 @@
 import ProductList from '@/components/products/ProductList';
 import { FILTER_OPTIONS, FilterCategory } from '@/lib/data';
+import { getDresses } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 
 // SEO için Metadata (Başlıklar dinamik değişsin)
@@ -37,6 +38,8 @@ export default async function CategoryPage({ params }: { params: { slug: string 
     notFound();
   }
 
+  const dresses = await getDresses();
+
   // ProductList'e slug'ı "activeSlug" olarak gönderiyoruz
-  return <ProductList activeSlug={slug} />;
+  return <ProductList activeSlug={slug} dresses={dresses}/>;
 }
