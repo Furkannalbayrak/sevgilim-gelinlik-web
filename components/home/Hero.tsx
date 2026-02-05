@@ -56,12 +56,6 @@ const Hero = () => {
                     >
                         Gelinlik Modellerini Gör
                     </Link>
-                    <Link
-                        href="/iletisim"
-                        className="bg-transparent border-2 border-white hover:bg-white/20 text-white font-medium py-3 px-8 rounded-full transition-colors duration-300"
-                    >
-                        Randevu Al
-                    </Link>
                 </div>
             </div>
 
