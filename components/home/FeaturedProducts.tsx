@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { DRESSES_DATA } from "@/lib/data";
+import { Dress } from "@/lib/data";
 
 // --- TİP TANIMLAMALARI ---
 
@@ -17,14 +17,18 @@ const categories: { key: CategoryKey; label: string }[] = [
     { key: "helen", label: "Helenistik" },
 ];
 
-export default function FeaturedProducts() {
+interface FeaturedProductsProps {
+    dresses: Dress[];
+}
+
+export default function FeaturedProducts({ dresses }: FeaturedProductsProps) {
     const [activeTab, setActiveTab] = useState<CategoryKey>("tumu");
 
     // Seçili sekmeye göre ürünleri filtrele
     const filteredDresses =
         activeTab === "tumu"
-            ? DRESSES_DATA
-            : DRESSES_DATA.filter((dress) => dress.categoryKey === activeTab);
+            ? dresses
+            : dresses.filter((dress) => dress.categoryKey === activeTab);
 
     return (
         <section className="bg-gray-50 py-16">
