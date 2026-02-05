@@ -3,28 +3,26 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-// import { useSearchParams } from 'next/navigation'; <-- BUNU SİLİYORUZ
 import {
-  DRESSES_DATA,
+  Dress,
   FILTER_OPTIONS,
   FilterCategory
 } from '@/lib/data';
-// FilterDrawer'ı import ettiğinden emin ol
 import FilterDrawer from '../FilterDrawer';
 
 interface ProductListProps {
   activeSlug?: string;
+  dresses: Dress[];
 }
 
-const ProductList = ({ activeSlug }: ProductListProps) => {
+const ProductList = ({ activeSlug, dresses }: ProductListProps) => {
   const currentSlug = activeSlug;
 
-  // --- FİLTRELEME MANTIĞI ---
   const displayedDresses = currentSlug
-    ? DRESSES_DATA.filter((dress) =>
+    ? dresses.filter((dress) =>
       Object.values(dress.filters).includes(currentSlug)
     )
-    : DRESSES_DATA;
+    : dresses;
 
   // --- BAŞLIK BULMA ---
   const getActiveLabel = () => {
@@ -95,21 +93,6 @@ const ProductList = ({ activeSlug }: ProductListProps) => {
                           className="absolute inset-0 object-cover z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                         />
                       )}
-
-                      {/* Favori Butonu (Minimal) */}
-                      <div className="absolute top-3 right-3 z-30">
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                          }}
-                          className="bg-white p-2 rounded-full shadow-md text-gray-400 hover:text-rose-500 transition-colors"
-                        >
-                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                          </svg>
-                        </button>
-                      </div>
                     </div>
 
                     {/* Ürün Bilgileri */}
