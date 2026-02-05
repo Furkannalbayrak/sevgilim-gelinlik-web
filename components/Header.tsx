@@ -32,7 +32,7 @@ const DressModelsDropdown = () => {
             onMouseLeave={handleMouseLeave}
         >
             <div
-                className={`flex items-center gap-1 text-xl font-sans transition-all duration-300 cursor-pointer text-gray-700 hover:text-rose-300 group`}
+                className={`flex items-center gap-1 text-xl font-sans transition-all duration-300 cursor-pointer text-gray-700 hover:text-rose-500 group`}
             >
                 Gelinlik Modelleri
                 <ChevronDown className={`h-4 w-4 mt-1 transition-transform duration-200 ${isOpen ? 'transform rotate-180' : ''}`} />
