@@ -58,22 +58,30 @@ export const FILTER_OPTIONS: Record<FilterCategory, FilterOption[]> = {
   etekTipi: [
     { id: 'prenses', label: 'Prenses' }, { id: 'a-kesim', label: 'A Kesim' },
     { id: 'helen', label: 'Helen' }, { id: 'balik', label: 'Balık' },
-    { id: 'kisa', label: 'Kısa' }, { id: 'kabarik', label: 'Kabarık' }
+    // { id: 'kisa', label: 'Kısa' },
+    { id: 'kabarik', label: 'Kabarık' }
   ],
   yakaTipi: [
-    { id: 'kayik-yaka', label: 'Kayık Yaka' }, { id: 'v-yaka', label: 'V Yaka' },
-    { id: 'kalp-yaka', label: 'Kalp Yaka' }, { id: 'askili', label: 'Askılı' }
+    // { id: 'kayik-yaka', label: 'Kayık Yaka' }, 
+    { id: 'v-yaka', label: 'V Yaka' },
+    { id: 'kalp-yaka', label: 'Kalp Yaka' }, { id: 'askili', label: 'Askılı' },
+    { id: 'havuz-yaka', label: 'Havuz Yaka'}, { id: 'kare-yaka', label: 'Kare Yaka'},
+    { id: 'madonna-yaka', label: 'Madonna Yaka'}, { id: 'hakim-yaka', label: 'Hakim Yaka'}
   ],
   kolTipi: [
-    { id: 'uzun-kollu', label: 'Uzun Kollu' }, { id: 'yarim-kollu', label: 'Yarım Kollu' },
+    { id: 'uzun-kollu', label: 'Uzun Kollu' }, 
+    // { id: 'yarim-kollu', label: 'Yarım Kollu' },
     { id: 'kolsuz', label: 'Kolsuz' }, { id: 'dusuk-omuz', label: 'Düşük Omuz' }
   ],
   kumas: [
     { id: 'dantelli', label: 'Dantelli' }, { id: 'tul', label: 'Tül' },
-    { id: 'saten', label: 'Saten' }, { id: 'sifon', label: 'Sifon' }
+    { id: 'saten', label: 'Saten' },
+    //  { id: 'sifon', label: 'Sifon' },
+    { id: 'tafta', label: 'Tafta'}
   ],
   konsept: [
-    { id: 'bohem', label: 'Bohem' }, { id: 'vintage', label: 'Vintage' },
+    { id: 'bohem', label: 'Bohem' }, 
+    // { id: 'vintage', label: 'Vintage' },
     { id: 'modern', label: 'Modern' }, { id: 'zarif', label: 'Zarif' }
   ]
 };
