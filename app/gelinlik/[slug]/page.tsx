@@ -21,6 +21,13 @@ export default function ProductDetailPage({ params }: PageProps) {
     const [loading, setLoading] = useState(true);
     const [activeIdx, setActiveIdx] = useState(0);
 
+    const [currentUrl, setCurrentUrl] = useState("");
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setCurrentUrl(window.location.href);
+        }
+    }, []);
+
     useEffect(() => {
         async function fetchData() {
             setLoading(true);
@@ -61,6 +68,9 @@ export default function ProductDetailPage({ params }: PageProps) {
     if (!product) return notFound();
 
     const galleryImages = product.images;
+    const phoneNumber = "905516284874";
+    const message = `Merhaba, ${product.name} (Kod: ${product.id}) modeli hakkında bilgi almak istiyorum.\n\nÜrün linki: ${currentUrl}`;
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
     return (
         <div className="max-w-7xl w-full mx-auto px-4 sm:px-10 py-10">
@@ -170,7 +180,9 @@ export default function ProductDetailPage({ params }: PageProps) {
 
                     <div className="mt-auto space-y-3">
                         <Link
-                            href="https://wa.me/905555555555"
+                            href={whatsappUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="block w-full py-4 bg-rose-500 hover:bg-rose-600 text-white text-center rounded-lg font-bold shadow-lg shadow-rose-200 transition-all transform hover:-translate-y-1"
                         >
                             WHATSAPP İLE BİLGİ AL
