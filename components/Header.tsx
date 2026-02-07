@@ -91,7 +91,6 @@ const Header = () => {
     const navLinks = [
         { name: 'Ana Sayfa', path: '/' },
         { name: 'Gelinlik Modelleri', path: '/gelinlik-modelleri' },
-        { name: 'Hakkımızda', path: '/hakkimizda' },
         { name: 'İletişim', path: '/iletisim' },
     ];
 
