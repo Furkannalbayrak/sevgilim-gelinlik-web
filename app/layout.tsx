@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "Sevgilim Gelinlik | Hayellerinizdeki Gelinlik Modelleri",
+    default: "Sevgilim Gelinlik | Hayallerinizdeki Gelinlik Modelleri",
     template: "%s | Sevgilim Gelinlik" // Alt sayfalarda otomatik " - Sevgilim Gelinlik" ekler
   },
   description: "İstanbul Fatih'te en şık gelinlik modelleri, özel tasarım ve dikim hizmetleri. Hayalinizdeki gelinliği birlikte tasarlayalım.",
@@ -20,10 +20,6 @@ export const metadata: Metadata = {
   icons: {
     icon: '/icon10.png', // Klasik ikon (public/favicon.ico olmalı)
     apple: '/icon10.png', // Apple cihazlar için (public/apple-icon.png)
-  },
-
-  verification: {
-    google: 'eMr5fYlQrbN4yAAIJ7gl3L4e_HmUU4XJ5g6QH6OG4sc',
   },
 
   openGraph: {
