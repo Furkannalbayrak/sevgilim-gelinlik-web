@@ -1,9 +1,13 @@
 import ProductList from "@/components/products/ProductList";
-import { getDresses } from "@/lib/supabase"; // Veri çekme fonksiyonu
+import { getDresses } from "@/lib/supabase";
+import { Metadata } from "next";
 
-// Async component yapıyoruz
+export const metadata: Metadata = {
+  title: "Gelinlik Modelleri | Sevgilim Gelinlik",
+  description: "En yeni gelinlik modelleri, özel tasarım gelinlikler ve uygun fiyatlı seçenekler Sevgilim Gelinlik'te. Koleksiyonumuzu hemen inceleyin.",
+};
+
 export default async function GelinlikModelleriPage() {
-    // Veriyi sunucuda çek
     const dresses = await getDresses();
 
     return (

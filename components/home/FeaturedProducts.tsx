@@ -30,6 +30,8 @@ export default function FeaturedProducts({ dresses }: FeaturedProductsProps) {
             ? dresses
             : dresses.filter((dress) => dress.categoryKey === activeTab);
 
+    const displayDresses = filteredDresses.slice(0, 12);
+
     return (
         <section className="bg-gray-50 py-16">
             <div className="max-w-7xl w-full mx-auto px-4 sm:px-8">
@@ -73,7 +75,7 @@ export default function FeaturedProducts({ dresses }: FeaturedProductsProps) {
 
                 {/* Ürün Listesi */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-10 lg:gap-y-12">
-                    {filteredDresses.map((dress) => (
+                    {displayDresses.map((dress) => (
                         <article
                             key={dress.id}
                             className="group relative"
@@ -89,7 +91,7 @@ export default function FeaturedProducts({ dresses }: FeaturedProductsProps) {
                                     {/* 1. ANA RESİM (Zemin) */}
                                     <Image
                                         src={dress.images[0]}
-                                        alt={dress.name}
+                                        alt={`${dress.name} Gelinlik Modeli`}
                                         fill
                                         sizes="(max-width: 768px) 50vw, 33vw"
                                         // priority ekleyerek yükleme gecikmesini önleriz (İlk 4-5 ürün için true olabilir)

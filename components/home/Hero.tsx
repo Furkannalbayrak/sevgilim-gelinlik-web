@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Hero = () => {
     const [current, setCurrent] = useState(0);
@@ -32,10 +33,14 @@ const Hero = () => {
                     className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === current ? 'opacity-100 z-0' : 'opacity-0'
                         }`}
                 >
-                    <img
+                    <Image
                         src={img}
-                        alt={`Slide ${index}`}
+                        alt={`Sevgilim Gelinlik Koleksiyonu - Slayt ${index + 1}`}
+                        fill
+                        priority={index === 0}
                         className="w-full h-full object-cover"
+                        sizes="100vw"
+                        quality={85}
                     />
                     <div className="absolute inset-0 bg-black/40"></div>
                 </div>

@@ -79,7 +79,7 @@ const ProductList = ({ activeSlug, dresses }: ProductListProps) => {
                     <div className="relative aspect-[3/5] sm:aspect-[3/4] overflow-hidden rounded-md bg-gray-100 shadow-sm">
                       <Image
                         src={dress.images[0]}
-                        alt={dress.name}
+                        alt={`${dress.name} ${dress.category} Gelinlik Modeli`}
                         fill
                         sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                         className="object-cover z-10"
