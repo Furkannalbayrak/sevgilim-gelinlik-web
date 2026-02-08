@@ -37,7 +37,8 @@ export default function MobileNav() {
     return (
         <Sheet>
             <SheetTrigger asChild>
-                <button className="text-gray-700 hover:text-rose-500 focus:outline-none lg:hidden p-2">
+                <button className="text-gray-700 hover:text-rose-500 focus:outline-none lg:hidden p-2"
+                aria-label="Ana menüyü aç">
                     <Menu className="h-6 w-6" />
                 </button>
             </SheetTrigger>
@@ -141,7 +142,7 @@ export default function MobileNav() {
                 {/* Footer / Sosyal Medya */}
                 <div className="mt-auto border-t border-gray-100 p-6 shrink-0 bg-gray-50">
                     <div className="flex justify-center space-x-6">
-                        <a href="https://www.instagram.com/sevgilimgelinlik/" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.instagram.com/sevgilimgelinlik/" target="_blank" rel="noopener noreferrer" aria-label="Instagram sayfamızı ziyaret edin">
                             <Instagram className="h-6 w-6 text-gray-400 hover:text-rose-500 cursor-pointer transition-colors" />
                         </a>
 
