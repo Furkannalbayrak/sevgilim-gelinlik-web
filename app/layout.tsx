@@ -22,6 +22,10 @@ export const metadata: Metadata = {
     apple: '/icon10.png', // Apple cihazlar için (public/apple-icon.png)
   },
 
+  verification: {
+    google: 'eMr5fYlQrbN4yAAIJ7gl3L4e_HmUU4XJ5g6QH6OG4sc',
+  },
+
   openGraph: {
     type: "website",
     locale: "tr_TR",
