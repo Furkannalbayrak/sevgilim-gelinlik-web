@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "tr_TR",
-    url: "https://sevgilimgelinlik.com.tr",
+    url: "https://www.sevgilimgelinlik.com.tr",
     title: "Sevgilim Gelinlik",
     description: "En özel gününüz için eşsiz tasarımlar.",
     siteName: "Sevgilim Gelinlik",
@@ -36,12 +36,12 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Sevgilim Gelinlik",
-  "url": "https://sevgilimgelinlik.com.tr", // Kendi domainin
+  "url": "https://www.sevgilimgelinlik.com.tr", // Kendi domainin
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": "https://sevgilimgelinlik.com.tr/search?q={search_term_string}"
+      "urlTemplate": "https://www.sevgilimgelinlik.com.tr/search?q={search_term_string}"
     },
     "query-input": "required name=search_term_string"
   }
@@ -55,13 +55,13 @@ const breadcrumbJsonLd = {
       "@type": "ListItem",
       "position": 1,
       "name": "Gelinlik Modelleri",
-      "item": "https://sevgilimgelinlik.com.tr/gelinlik-modelleri"
+      "item": "https://www.sevgilimgelinlik.com.tr/gelinlik-modelleri"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "İletişim",
-      "item": "https://sevgilimgelinlik.com.tr/iletisim"
+      "item": "https://www.sevgilimgelinlik.com.tr/iletisim"
     }
   ]
 };
