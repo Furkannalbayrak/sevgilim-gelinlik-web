@@ -8,6 +8,7 @@ import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.sevgilimgelinlik.com.tr"),
   title: {
     default: "Sevgilim Gelinlik | Hayallerinizdeki Gelinlik Modelleri",
     template: "%s | Sevgilim Gelinlik" // Alt sayfalarda otomatik " - Sevgilim Gelinlik" ekler
@@ -16,11 +17,6 @@ export const metadata: Metadata = {
   keywords: ["gelinlik", "gelinlik modelleri", "fatih gelinlikçiler", "gelinlik fiyatları", "tesettür gelinlik"],
 
   //Eğer logon public klasöründe logo.png olarak varsa:
-
-  icons: {
-    icon: '/icon10.png', // Klasik ikon (public/favicon.ico olmalı)
-    apple: '/icon10.png', // Apple cihazlar için (public/apple-icon.png)
-  },
 
   openGraph: {
     type: "website",
