@@ -9,6 +9,9 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.sevgilimgelinlik.com.tr"),
+  alternates: {
+    canonical: "https://www.sevgilimgelinlik.com.tr",
+  },
   title: {
     default: "Sevgilim Gelinlik | Hayallerinizdeki Gelinlik Modelleri",
     template: "%s | Sevgilim Gelinlik" // Alt sayfalarda otomatik " - Sevgilim Gelinlik" ekler
