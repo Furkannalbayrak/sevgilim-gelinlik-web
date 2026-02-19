@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Sevgilim Gelinlik | Hayalinizdeki Gelinliği Keşfedin",
   description: "İstanbul Fatih'in en seçkin gelinlik koleksiyonu. Prenses, Balık, A-Kesim ve Helen model gelinlikler, kiralık ve satılık seçenekleriyle mağazamızda.",
   keywords: ["gelinlik modelleri", "fatih gelinlik", "istanbul gelinlik dikimi", "tesettür gelinlik", "prenses model gelinlik 2024"],
+  alternates: {
+    canonical: "https://www.sevgilimgelinlik.com.tr"
+  },
   openGraph: {
     title: "Sevgilim Gelinlik - En Şık Gelinlik Modelleri",
     description: "Özel dikim ve hazır model seçenekleriyle en mutlu gününüzde yanınızdayız.",

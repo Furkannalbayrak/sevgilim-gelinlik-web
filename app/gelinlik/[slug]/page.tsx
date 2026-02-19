@@ -22,6 +22,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
         title: `${product.name} - Gelinlik Modelleri | Sevgilim Gelinlik`,
         description: product.description || `${product.name} gelinlik modeli ve detayları. Özel dikim ve hazır model seçenekleriyle.`,
+        alternates: {
+            canonical: `https://www.sevgilimgelinlik.com.tr/gelinlik/${slug}`
+        },
         openGraph: {
             title: `${product.name} | Sevgilim Gelinlik`,
             description: product.description,

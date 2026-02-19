@@ -19,6 +19,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${label} Gelinlik Modelleri | Sevgilim Gelinlik`,
     description: `En şık ${label} gelinlik modellerini ve fiyatlarını inceleyin.`,
+    alternates: {
+      canonical: `https://www.sevgilimgelinlik.com.tr/gelinlik-modelleri/${slug}`
+    },
   };
 }
 
