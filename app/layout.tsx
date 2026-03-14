@@ -46,25 +46,6 @@ const jsonLd = {
   }
 };
 
-const breadcrumbJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Gelinlik Modelleri",
-      "item": "https://www.sevgilimgelinlik.com.tr/gelinlik-modelleri"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "İletişim",
-      "item": "https://www.sevgilimgelinlik.com.tr/iletisim"
-    }
-  ]
-};
-
 
 const dancingScript = Dancing_Script({
   subsets: ["latin"],
@@ -85,11 +66,6 @@ export default function RootLayout({
           id="json-ld-website"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        <Script
-          id="json-ld-breadcrumb"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
         />
 
         <Header />
